@@ -1,0 +1,53 @@
+This is our test plan for using the search tool on the included "test" folder.
+
+$make indexer
+gcc -Wall -O -g -o bin/sorted_list.o -c src/sorted_list.c
+gcc -Wall -O -g -o bin/indexer.o -c src/indexer.c
+gcc -Wall -O -g -o bin/tokenizer.o -c src/tokenizer.c
+gcc -Wall -O -g src/indexer_main.c bin/sorted_list.o bin/indexer.o bin/tokenizer.o -o indexer
+$./indexer test_file test
+
+$make search
+gcc -Wall -O -g -o bin/sorted_list.o -c src/sorted_list.c
+gcc -Wall -O -g -o bin/indexer.o -c src/indexer.c
+gcc -Wall -O -g -o bin/index_parser.o -c src/index_parser.c
+gcc -Wall -O -g -o bin/util.o -c src/util.c
+gcc -Wall -O -g src/main.c bin/sorted_list.o bin/index_parser.o bin/util.o bin/indexer.o -o search
+
+$./search test_file
+so bob steve
+[test/somefile6], [test/somefile5], [test/somefile4], [test/somefile3], [test/somefile2], [test/somefile]
+
+sa bob steve
+[test/somefile6], [test/somefile2]
+
+so bob
+[test/somefile6], [test/somefile2]
+
+sa steve
+[test/somefile6], [test/somefile5], [test/somefile4], [test/somefile3], [test/somefile2], [test/somefile]
+
+sa steve bob dfgsadkfan
+
+
+sa steve bob my
+[test/somefile6], [test/somefile2]
+
+sa steve my
+[test/somefile6], [test/somefile5], [test/somefile4], [test/somefile2], [test/somefile]
+
+so steve my
+[test/somefile6], [test/somefile5], [test/somefile4], [test/somefile3], [test/somefile2], [test/somefile]
+
+so 
+
+
+so steve
+[test/somefile6], [test/somefile5], [test/somefile4], [test/somefile3], [test/somefile2], [test/somefile]
+
+so bob
+[test/somefile6], [test/somefile2]
+
+q
+
+$
